@@ -74,17 +74,21 @@ void GameLoop(Discord* discord, Mafia* mafia)
 	int playerRotateCamera;
 	int isInCar;
 
+	std::string missionString = "00menu";
+
 	while (true)
 	{
 		mission = (const char*)GetPointerAddress(BASE_ADDRESS_MISSION, { 0x68, 0x0 });
 		isLoaded = *(int*)GetPointerAddress(BASE_ADDRESS_PLAYER, { 0x40 });
 		playerCamera = *(int*)GetPointerAddress(BASE_ADDRESS_PLAYER, { 0x5c });
-		playerRotateCamera = *(int*)GetPointerAddress(BASE_ADDRESS_PLAYER, { 0xE0 });
+		playerRotateCamera = *(int*)GetPointerAddress(BASE_ADDRESS_PLAYER, { 0xE0 });	
 
 		if (playerCamera > 6 && playerCamera < 16)
 			isInCar = 1;
 		else
 			isInCar = 0;
+
+		missionString = mission;
 
 		discord->discordPresence.details = mission;
 		GetMafiaMissionsNames(discord, presenceMap, mission);
@@ -97,8 +101,10 @@ void GameLoop(Discord* discord, Mafia* mafia)
 			discord->discordPresence.state = "On a Tram...";
 		else if (isLoaded == 1 && playerRotateCamera == 1 && isInCar == 0)
 			discord->discordPresence.state = "Trying to get in a car...";
-		else if (isLoaded == 1 && isInCar == 1)
+		else if (isLoaded == 1 && isInCar == 1 && playerCamera != 17 && playerCamera != 22 && playerCamera != 24 && missionString != "00menu")
 			discord->discordPresence.state = "Driving a car...";
+		else if (isLoaded == 1 && isInCar == 0 && playerCamera != 17 && playerCamera != 22 && playerCamera != 24 && missionString != "00menu")
+			discord->discordPresence.state = "Walking around...";
 		else
 			discord->discordPresence.state = NULL;
 
