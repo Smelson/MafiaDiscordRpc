@@ -92,6 +92,14 @@ void GetMafiaMissionsNames(Discord* discord, std::map<std::string, MissionPresen
 
 	MissionPresenceInfo info = presenceMap[missionString];
 
+	if (info.details == nullptr && info.largeImageKey == nullptr)
+	{
+		discord->discordPresence.details = mission;
+		discord->discordPresence.largeImageKey = "";
+		discord->discordPresence.largeImageText = mission;
+		return;
+	}
+
 	discord->discordPresence.details = info.details;
 	discord->discordPresence.largeImageKey = info.largeImageKey;
 	discord->discordPresence.largeImageText = info.details;
