@@ -73,12 +73,12 @@ void GameLoop(Discord* discord, Mafia* mafia, std::map<std::string, MissionPrese
 
 	std::string missionString = "00menu";
 
-		mission = (const char*)Helpers::GetPointerAddress(BASE_ADDRESS_MISSION, { 0x68, 0x0 });
-		missionString = mission;
+	mission = (const char*)Helpers::GetPointerAddress(BASE_ADDRESS_MISSION, { 0x68, 0x0 });
+	missionString = mission;
 
-		GetMafiaMissionsNames(discord, presenceMap, mission);
-		discord->discordPresence.startTimestamp = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
+	GetMafiaMissionsNames(discord, presenceMap, mission);
+	discord->discordPresence.startTimestamp = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
 
-		discord->UpdatePresence();
+	discord->UpdatePresence();
 }
 
