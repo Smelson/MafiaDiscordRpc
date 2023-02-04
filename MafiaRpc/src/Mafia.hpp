@@ -26,5 +26,3 @@ class MafiaSDK
 public:
 	static int GetGameVersion();
 };
-
-void GameLoop(Discord* discord, Mafia* mafia);
