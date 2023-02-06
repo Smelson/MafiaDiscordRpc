@@ -18,7 +18,7 @@ public:
 	DWORD GetBaseAddressMission();
 	int GetGameVersion();
 
-	void Initialize(Discord* discord, DWORD baseAddressPlayer, DWORD baseAddressMission, int gameVersion, const char* smallImageText);
+	void Initialize(Discord& discord, DWORD baseAddressPlayer, DWORD baseAddressMission, int gameVersion, const char* smallImageText);
 };
 
 class MafiaSDK

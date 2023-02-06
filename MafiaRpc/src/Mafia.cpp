@@ -34,15 +34,14 @@ int Mafia::GetGameVersion()
 	return GAME_VERSION;
 }
 
-void Mafia::Initialize(Discord* discord, DWORD baseAddressPlayer, DWORD baseAddressMission, int gameVersion, const char* smallImageText)
+void Mafia::Initialize(Discord& discord, DWORD baseAddressPlayer, DWORD baseAddressMission, int gameVersion, const char* smallImageText)
 {
 	SetBaseAddressPlayer(baseAddressPlayer);
 	SetBaseAddressMission(baseAddressMission);
 	SetGameVersion(gameVersion);
 
-	discord->discordPresence.smallImageText = smallImageText;
-	discord->discordPresence.startTimestamp = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
-	discord->discordPresence.smallImageKey = "mafia_new";
+	discord.discordPresence.smallImageText = smallImageText;
+	discord.discordPresence.smallImageKey = "mafia_new";
 }
 
 //////////////////////////////////////////////////////////////
@@ -58,18 +57,14 @@ int MafiaSDK::GetGameVersion()
 	return 0;
 }
 
-/////////////////////////////////////////////////////////////a
+/////////////////////////////////////////////////////////////
 
-void GameLoop(Discord* discord, Mafia* mafia, std::map<std::string, MissionPresenceInfo> presenceMap)
+void GameLoop(Discord& discord, Mafia& mafia, std::map<std::string, MissionPresenceInfo> presenceMap)
 {
-	DWORD BASE_ADDRESS_PLAYER = mafia->GetBaseAddressPlayer();
-	DWORD BASE_ADDRESS_MISSION = mafia->GetBaseAddressMission();
+	DWORD BASE_ADDRESS_PLAYER = mafia.GetBaseAddressPlayer();
+	DWORD BASE_ADDRESS_MISSION = mafia.GetBaseAddressMission();
 
 	const char* mission;
-	int isLoaded;
-	int playerCamera;
-	int playerRotateCamera;
-	int isInCar;
 
 	std::string missionString = "00menu";
 
@@ -77,8 +72,9 @@ void GameLoop(Discord* discord, Mafia* mafia, std::map<std::string, MissionPrese
 	missionString = mission;
 
 	GetMafiaMissionsNames(discord, presenceMap, mission);
-	discord->discordPresence.startTimestamp = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
+	discord.discordPresence.state = nullptr;
+	discord.discordPresence.startTimestamp = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
 
-	discord->UpdatePresence();
+	discord.UpdatePresence();
 }
 

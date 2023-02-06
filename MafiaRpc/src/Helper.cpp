@@ -22,9 +22,9 @@ void Helpers::InstallJmpHook(DWORD hookAddress, DWORD myFunction)
 
 void Helpers::InstallCallHook(DWORD hookAddress, DWORD myFunction)
 {
-	DWORD protection[2];
-	VirtualProtect((void*)hookAddress, 5, PAGE_EXECUTE_READWRITE, &protection[0]);
+	DWORD protect[2];
+	VirtualProtect((void*)hookAddress, 5, PAGE_EXECUTE_READWRITE, &protect[0]);
 	*(BYTE*)hookAddress = 0xE8;
 	*(DWORD*)(hookAddress + 1) = (myFunction - hookAddress) - 5;
-	VirtualProtect((void*)hookAddress, 5, protection[0], &protection[1]);
+	VirtualProtect((void*)hookAddress, 5, protect[0], &protect[1]);
 }
