@@ -121,7 +121,6 @@ __declspec(naked) void OnPlayerChangeCamera()
 		call Discord::UpdatePresence
 		jmp back
 	}
-	
 }
 
 int __stdcall DllMain(HMODULE hModule, DWORD reason_for_call, LPVOID lpReserved)
@@ -147,6 +146,5 @@ int __stdcall DllMain(HMODULE hModule, DWORD reason_for_call, LPVOID lpReserved)
 
 		InitRpc();
 	}
-
 	return 1;
 }

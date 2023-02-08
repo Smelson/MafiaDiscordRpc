@@ -2,8 +2,6 @@
 #include "GetMiseNames.hpp"
 #include <chrono>
 
-#define SLEEPTIME 1000
-
 void Mafia::SetBaseAddressPlayer(DWORD baseAddressPlayer)
 {
 	BASE_ADDRESS_PLAYER = baseAddressPlayer;
@@ -12,7 +10,7 @@ void Mafia::SetBaseAddressPlayer(DWORD baseAddressPlayer)
 void Mafia::SetBaseAddressMission(DWORD baseAddressMission)
 {
 	BASE_ADDRESS_MISSION = baseAddressMission;
-}
+}	
 
 void Mafia::SetGameVersion(int gameVersion)
 {

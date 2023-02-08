@@ -71,7 +71,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>D:\Visual Studio\MafiaDiscordRpc-github\MafiaRpc\src\DiscordSDK\src;D:\Visual Studio\MafiaDiscordRpc-github\MafiaRpc\src\DiscordSDK\include;$(IncludePath)</IncludePath>
+    <IncludePath>D:\Visual Studio\DiscordRichPresence--master\DiscordRichPresence--master\src;D:\Visual Studio\DiscordRichPresence--master\DiscordRichPresence--master\include;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)dll\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -131,11 +131,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="C:\Users\bossv\Downloads\DiscordRichPresence--master\DiscordRichPresence--master\src\connection_win.cpp" />
-    <ClCompile Include="C:\Users\bossv\Downloads\DiscordRichPresence--master\DiscordRichPresence--master\src\discord_register_win.cpp" />
-    <ClCompile Include="C:\Users\bossv\Downloads\DiscordRichPresence--master\DiscordRichPresence--master\src\discord_rpc.cpp" />
-    <ClCompile Include="C:\Users\bossv\Downloads\DiscordRichPresence--master\DiscordRichPresence--master\src\rpc_connection.cpp" />
-    <ClCompile Include="C:\Users\bossv\Downloads\DiscordRichPresence--master\DiscordRichPresence--master\src\serialization.cpp" />
+    <ClCompile Include="..\..\DiscordRichPresence--master\DiscordRichPresence--master\src\connection_win.cpp" />
+    <ClCompile Include="..\..\DiscordRichPresence--master\DiscordRichPresence--master\src\discord_register_win.cpp" />
+    <ClCompile Include="..\..\DiscordRichPresence--master\DiscordRichPresence--master\src\discord_rpc.cpp" />
+    <ClCompile Include="..\..\DiscordRichPresence--master\DiscordRichPresence--master\src\dllmain.cpp" />
+    <ClCompile Include="..\..\DiscordRichPresence--master\DiscordRichPresence--master\src\rpc_connection.cpp" />
+    <ClCompile Include="..\..\DiscordRichPresence--master\DiscordRichPresence--master\src\serialization.cpp" />
     <ClCompile Include="src\Discord.cpp" />
     <ClCompile Include="src\Discord.hpp" />
     <ClCompile Include="src\GetMiseNames.cpp" />
@@ -144,11 +145,13 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="C:\Users\bossv\Downloads\DiscordRichPresence--master\DiscordRichPresence--master\src\backoff.h" />
-    <ClInclude Include="C:\Users\bossv\Downloads\DiscordRichPresence--master\DiscordRichPresence--master\src\connection.h" />
-    <ClInclude Include="C:\Users\bossv\Downloads\DiscordRichPresence--master\DiscordRichPresence--master\src\msg_queue.h" />
-    <ClInclude Include="C:\Users\bossv\Downloads\DiscordRichPresence--master\DiscordRichPresence--master\src\rpc_connection.h" />
-    <ClInclude Include="C:\Users\bossv\Downloads\DiscordRichPresence--master\DiscordRichPresence--master\src\serialization.h" />
+    <ClInclude Include="..\..\DiscordRichPresence--master\DiscordRichPresence--master\include\discord_register.h" />
+    <ClInclude Include="..\..\DiscordRichPresence--master\DiscordRichPresence--master\include\discord_rpc.h" />
+    <ClInclude Include="..\..\DiscordRichPresence--master\DiscordRichPresence--master\src\backoff.h" />
+    <ClInclude Include="..\..\DiscordRichPresence--master\DiscordRichPresence--master\src\connection.h" />
+    <ClInclude Include="..\..\DiscordRichPresence--master\DiscordRichPresence--master\src\msg_queue.h" />
+    <ClInclude Include="..\..\DiscordRichPresence--master\DiscordRichPresence--master\src\rpc_connection.h" />
+    <ClInclude Include="..\..\DiscordRichPresence--master\DiscordRichPresence--master\src\serialization.h" />
     <ClInclude Include="src\GetMiseNames.hpp" />
     <ClInclude Include="src\Helper.hpp" />
     <ClInclude Include="src\Log.hpp" />
@@ -156,7 +159,7 @@
     <ClInclude Include="src\main.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="C:\Users\bossv\Downloads\DiscordRichPresence--master\DiscordRichPresence--master\src\CMakeLists.txt" />
+    <Text Include="..\..\DiscordRichPresence--master\DiscordRichPresence--master\src\CMakeLists.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

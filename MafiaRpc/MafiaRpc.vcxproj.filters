@@ -39,19 +39,22 @@
     <ClCompile Include="src\GetMiseNames.cpp">
       <Filter>Исходные файлы\Mafia</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\bossv\Downloads\DiscordRichPresence--master\DiscordRichPresence--master\src\serialization.cpp">
+    <ClCompile Include="..\..\DiscordRichPresence--master\DiscordRichPresence--master\src\connection_win.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\bossv\Downloads\DiscordRichPresence--master\DiscordRichPresence--master\src\connection_win.cpp">
+    <ClCompile Include="..\..\DiscordRichPresence--master\DiscordRichPresence--master\src\discord_register_win.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\bossv\Downloads\DiscordRichPresence--master\DiscordRichPresence--master\src\discord_register_win.cpp">
+    <ClCompile Include="..\..\DiscordRichPresence--master\DiscordRichPresence--master\src\discord_rpc.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\bossv\Downloads\DiscordRichPresence--master\DiscordRichPresence--master\src\discord_rpc.cpp">
+    <ClCompile Include="..\..\DiscordRichPresence--master\DiscordRichPresence--master\src\dllmain.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\bossv\Downloads\DiscordRichPresence--master\DiscordRichPresence--master\src\rpc_connection.cpp">
+    <ClCompile Include="..\..\DiscordRichPresence--master\DiscordRichPresence--master\src\rpc_connection.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DiscordRichPresence--master\DiscordRichPresence--master\src\serialization.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -71,23 +74,29 @@
     <ClInclude Include="src\GetMiseNames.hpp">
       <Filter>Исходные файлы\Mafia</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\bossv\Downloads\DiscordRichPresence--master\DiscordRichPresence--master\src\serialization.h">
+    <ClInclude Include="..\..\DiscordRichPresence--master\DiscordRichPresence--master\include\discord_register.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\bossv\Downloads\DiscordRichPresence--master\DiscordRichPresence--master\src\backoff.h">
+    <ClInclude Include="..\..\DiscordRichPresence--master\DiscordRichPresence--master\include\discord_rpc.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\bossv\Downloads\DiscordRichPresence--master\DiscordRichPresence--master\src\connection.h">
+    <ClInclude Include="..\..\DiscordRichPresence--master\DiscordRichPresence--master\src\backoff.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\bossv\Downloads\DiscordRichPresence--master\DiscordRichPresence--master\src\msg_queue.h">
+    <ClInclude Include="..\..\DiscordRichPresence--master\DiscordRichPresence--master\src\connection.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\bossv\Downloads\DiscordRichPresence--master\DiscordRichPresence--master\src\rpc_connection.h">
+    <ClInclude Include="..\..\DiscordRichPresence--master\DiscordRichPresence--master\src\msg_queue.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DiscordRichPresence--master\DiscordRichPresence--master\src\rpc_connection.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DiscordRichPresence--master\DiscordRichPresence--master\src\serialization.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="C:\Users\bossv\Downloads\DiscordRichPresence--master\DiscordRichPresence--master\src\CMakeLists.txt" />
+    <Text Include="..\..\DiscordRichPresence--master\DiscordRichPresence--master\src\CMakeLists.txt" />
   </ItemGroup>
 </Project>
