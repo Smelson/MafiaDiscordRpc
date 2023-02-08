@@ -25,11 +25,33 @@ void OnGameInit()
 	CreateThread(nullptr, 0, reinterpret_cast<LPTHREAD_START_ROUTINE>(StartRpc), nullptr, 0, nullptr);
 }
 
+__declspec(naked) void OnGameExit()
+{
+	_asm add esp, 3ECh
+	discord.Shutdown();
+	_asm retn 10h
+}
+
 __declspec(naked) void OnGameLoading()
+{
+	static DWORD back = 0x005BFDE1;
+	static float res = 800;
+	static const char state[] = "Loading Game...";
+	_asm
+	{
+		mov [discord.discordPresence.state], offset state
+		mov ecx, offset discord
+		call Discord::UpdatePresence
+		push res
+		jmp back
+	}
+}
+
+__declspec(naked) void OnMissionLoading()
 {
 	static DWORD func = 0x60FCF6;
 	static DWORD back = 0x5A4CFE;
-	static const char state[] = "Loading...";
+	static const char state[] = "Loading Mission...";
 
 	_asm
 	{
@@ -137,7 +159,9 @@ int __stdcall DllMain(HMODULE hModule, DWORD reason_for_call, LPVOID lpReserved)
 		else if (gameVersion == 395)
 		{
 			Helpers::InstallJmpHook(0x005A395B, (DWORD)OnGameInit);
-			Helpers::InstallJmpHook(0x005A4CF9, (DWORD)OnGameLoading);
+			Helpers::InstallJmpHook(0x005661AB, (DWORD)OnGameExit);
+			Helpers::InstallJmpHook(0x005BFDDC, (DWORD)OnGameLoading);
+			Helpers::InstallJmpHook(0x005A4CF9, (DWORD)OnMissionLoading);
 			Helpers::InstallJmpHook(0x005ED1AD, (DWORD)OnPlayerEnterCar);
 			Helpers::InstallJmpHook(0x005ED1CC, (DWORD)OnPlayerExitCar);
 			Helpers::InstallJmpHook(0x005ED456, (DWORD)OnPlayerChangeCamera);

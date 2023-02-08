@@ -59,7 +59,6 @@ int MafiaSDK::GetGameVersion()
 
 void GameLoop(Discord& discord, Mafia& mafia, std::map<std::string, MissionPresenceInfo> presenceMap)
 {
-	DWORD BASE_ADDRESS_PLAYER = mafia.GetBaseAddressPlayer();
 	DWORD BASE_ADDRESS_MISSION = mafia.GetBaseAddressMission();
 
 	const char* mission;
