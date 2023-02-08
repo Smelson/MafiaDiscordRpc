@@ -153,9 +153,15 @@ int __stdcall DllMain(HMODULE hModule, DWORD reason_for_call, LPVOID lpReserved)
 
 		gameVersion = MafiaSDK::GetGameVersion();
 		if (gameVersion == 384)
+		{
+			MessageBoxA(NULL, "Wrong game version! You use Mafia v1.0!\n\nYou should use Mafia v1.2!", "Error!", MB_ICONERROR);
 			exit(1);
+		}
 		else if (gameVersion == 393)
+		{
+			MessageBoxA(NULL, "Wrong game version! You use Mafia v1.1!\n\nYou should use Mafia v1.2!", "Error!", MB_ICONERROR);
 			exit(1);
+		}
 		else if (gameVersion == 395)
 		{
 			Helpers::InstallJmpHook(0x005A395B, (DWORD)OnGameInit);
