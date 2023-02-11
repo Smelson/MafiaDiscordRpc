@@ -13,7 +13,7 @@ Rich Presence is a feature from Discord that allows you to show some data from y
 ## What can it do?
 For the current version it shows a game mission you play and supportes these states:
 * "Loading Game..."
-* "Loading Mission..."
+* "Loading a Mission..."
 * "Watching a Cutscene..."
 * "Driving a Car..."
 * "On a Train..."
