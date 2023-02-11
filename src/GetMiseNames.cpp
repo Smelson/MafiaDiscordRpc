@@ -7,7 +7,7 @@ std::map<std::string, MissionPresenceInfo> SetMap()
 	presenceMap["autosalon"]				= 			MissionPresenceInfo{ "Carcyclopedia", "Carcyclopedia" };
 	presenceMap["carcyclopedia"]			= 			MissionPresenceInfo{ "Carcyclopedia", "carcyklopedia" };
 	presenceMap["extreme"]					= 			MissionPresenceInfo{ "Free Ride Extreme", "freeride" };
-	presenceMap["freeitaly"]				= 			MissionPresenceInfo{ "Free Ride City - Small" };
+	presenceMap["freeitaly"]				= 			MissionPresenceInfo{ "Free Ride City - Small", "freeride" };
 	presenceMap["freekrajina"]				= 			MissionPresenceInfo{ "Free Ride Country Side - Daytime", "freeride" };
 	presenceMap["freekrajinanoc"]			= 			MissionPresenceInfo{ "Free Ride Country Side - Night", "freeride" };
 	presenceMap["freeride"]					= 			MissionPresenceInfo{ "Free Ride City - Daytime", "freeride" };

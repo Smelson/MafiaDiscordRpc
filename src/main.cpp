@@ -51,7 +51,7 @@ __declspec(naked) void OnMissionLoading()
 {
 	static DWORD func = 0x60FCF6;
 	static DWORD back = 0x5A4CFE;
-	static const char state[] = "Loading Mission...";
+	static const char state[] = "Loading a Mission...";
 
 	_asm
 	{
@@ -67,7 +67,7 @@ __declspec(naked) void OnPlayerEnterCar()
 {
 	static DWORD func = 0x5F2EA0;
 	static DWORD back = 0x5ED1B2;
-	static const char state[] = "Driving a car...";
+	static const char state[] = "Driving a Car...";
 
 	_asm
 	{
