@@ -98,9 +98,9 @@ __declspec(naked) void OnPlayerChangeCamera()
 {
 	static DWORD func = 0x5F2EA0;
 	static DWORD back = 0x5ED45B;
-	static const char carState[] = "Driving a car...";
-	static const char tramState[] = "On Tram...";
-	static const char cutsceneState[] = "Watching a cutscene...";
+	static const char carState[] = "Driving a Car...";
+	static const char tramState[] = "On a Train...";
+	static const char cutsceneState[] = "Watching a Cutscene...";
 
 	_asm
 	{
