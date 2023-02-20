@@ -1,22 +1,22 @@
 #include "main.hpp"
 
-Discord discord;
-Mafia mafia;
-std::map<std::string, MissionPresenceInfo> presenceMap = SetMap();
-int gameVersion;
-
-void GameLoop(Discord& discord, Mafia& mafia, std::map<std::string, MissionPresenceInfo> presenceMap);
+Discord discordClient;
+Mafia mafiaClient;
+int GAME_VERSION;
+std::map<std::string, MissionPresenceInfo> presenceMap;
 
 void StartRpc()
 {
-	GameLoop(discord, mafia, presenceMap);
+	GameLoop(discordClient, mafiaClient, presenceMap);
+
+    Helpers::Log("OnGameInit Hooked!");
+
 	ExitThread(0);
 }
 
 void InitRpc()
 {
-	mafia.Initialize(discord, 0x00647E1C, 0x0063788C, 393, "Mafia 1.2");
-	discord.Initialize();
+	discordClient.Initialize();
 	presenceMap = SetMap();
 }
 
@@ -27,85 +27,166 @@ void OnGameInit()
 
 __declspec(naked) void OnGameExit()
 {
-	_asm add esp, 3ECh
-	discord.Shutdown();
+    _asm add esp, 3ECh
+	discordClient.Shutdown();
 	_asm retn 10h
 }
 
 __declspec(naked) void OnGameLoading()
 {
-	static DWORD back = 0x005BFDE1;
-	static float res = 800;
+    Helpers::Log("OnGameLoading Hooked!");
+
+    static DWORD back10 = 0x005FB1D9;
+    static DWORD back12 = 0x005BFDE1;
 	static const char state[] = "Loading Game...";
 	_asm
 	{
-		mov [discord.discordPresence.state], offset state
-		mov ecx, offset discord
+        cmp GAME_VERSION, 0x180
+        jz ONEZERO
+        cmp GAME_VERSION, 0x18B
+        jz ONETWO
+
+        ONEZERO:
+        mov [discordClient.discordPresence.state], offset state
+		mov ecx, offset discordClient
 		call Discord::UpdatePresence
-		push res
-		jmp back
+        test eax, eax
+        push 2C8h
+        jmp back10
+
+        ONETWO:
+        mov [discordClient.discordPresence.state], offset state
+		mov ecx, offset discordClient
+		call Discord::UpdatePresence
+        test eax, eax
+        push 44160000h
+        jmp back12
 	}
 }
 
 __declspec(naked) void OnMissionLoading()
 {
-	static DWORD func = 0x60FCF6;
-	static DWORD back = 0x5A4CFE;
+    Helpers::Log("OnMissionLoading Hooked!");
+
+    static DWORD func10 = 0x6243AC;
+	static DWORD func12 = 0x60FCF6;
+    static DWORD back10 = 0x5E075B;
+	static DWORD back12 = 0x5A4CFE;
 	static const char state[] = "Loading a Mission...";
 
 	_asm
 	{
-		call func
-		mov [discord.discordPresence.state], offset state
-		mov ecx, offset discord
+        cmp GAME_VERSION, 0x180
+        jz ONEZERO
+        cmp GAME_VERSION, 0x18B
+        jz ONETWO
+
+        ONEZERO:
+		call func10
+		mov [discordClient.discordPresence.state], offset state
+		mov ecx, offset discordClient
 		call Discord::UpdatePresence
-		jmp back
+		jmp back10
+
+        ONETWO:
+        call func12
+		mov [discordClient.discordPresence.state], offset state
+		mov ecx, offset discordClient
+		call Discord::UpdatePresence
+		jmp back12
 	}
 }
 
 __declspec(naked) void OnPlayerEnterCar()
 {
-	static DWORD func = 0x5F2EA0;
-	static DWORD back = 0x5ED1B2;
+    static DWORD func10 = 0x5DA4B0;  
+	static DWORD func12 = 0x5F2EA0;
+    static DWORD back10 = 0x5D4AC2;
+	static DWORD back12 = 0x5ED1B2;
 	static const char state[] = "Driving a Car...";
 
 	_asm
 	{
-		call func
-		mov [discord.discordPresence.state], offset state
-		mov ecx, offset discord
+        cmp GAME_VERSION, 0x180
+        jz ONEZERO
+        cmp GAME_VERSION, 0x18B
+        jz ONETWO
+
+        ONEZERO:
+        test eax, eax
+		call func10
+		mov [discordClient.discordPresence.state], offset state
+		mov ecx, offset discordClient
 		call Discord::UpdatePresence
-		jmp back
+		jmp back10
+
+        ONETWO:
+        test eax, eax
+		call func12
+		mov [discordClient.discordPresence.state], offset state
+		mov ecx, offset discordClient
+		call Discord::UpdatePresence
+		jmp back12
 	}
 }
 
 __declspec(naked) void OnPlayerExitCar()
 {
-	static DWORD func = 0x5F2EA0;
-	static DWORD back = 0x5ED1D1;
+    static DWORD func10 = 0x5DA4B0;
+	static DWORD func12 = 0x5F2EA0;
+    static DWORD back10 = 0x5D4AE1;
+	static DWORD back12 = 0x5ED1D1;
 
 	_asm
 	{
-		call func
-		mov [discord.discordPresence.state], 000000000
-		mov ecx, offset discord
+        cmp GAME_VERSION, 0x180
+        jz ONEZERO
+        cmp GAME_VERSION, 0x18B
+        jz ONETWO
+
+        ONEZERO:
+		call func10
+		mov [discordClient.discordPresence.state], 000000000
+		mov ecx, offset discordClient
 		call Discord::UpdatePresence
-		jmp back
+		jmp back10
+
+        ONETWO:
+		call func12
+		mov [discordClient.discordPresence.state], 000000000
+		mov ecx, offset discordClient
+		call Discord::UpdatePresence
+		jmp back12
 	}
 }
 
 __declspec(naked) void OnPlayerChangeCamera()
 {
-	static DWORD func = 0x5F2EA0;
-	static DWORD back = 0x5ED45B;
+    static DWORD func10 = 0x5DA4B0;
+	static DWORD func12 = 0x5F2EA0;
+    static DWORD back10 = 0x5D4D6B;
+	static DWORD back12 = 0x5ED45B;
+
 	static const char carState[] = "Driving a Car...";
 	static const char tramState[] = "On a Train...";
 	static const char cutsceneState[] = "Watching a Cutscene...";
 
 	_asm
 	{
-		call func
+        cmp GAME_VERSION, 0x180
+        jz ONEZERO
+        cmp GAME_VERSION, 0x18B
+        jz ONETWO
 
+        ONEZERO:
+		call func10
+        jmp UpdateState
+
+        ONETWO:
+        call func12
+        jmp UpdateState
+
+        UpdateState:
 		cmp [edi+0x10], 0x7
 		jz SetCarState
 		cmp [edi+0x10], 0x8
@@ -122,59 +203,76 @@ __declspec(naked) void OnPlayerChangeCamera()
 		jz SetTramState
 		cmp [edi+0x10], 0x16
 		jz SetCutsceneState
-		mov [discord.discordPresence.state], 000000000
+		mov [discordClient.discordPresence.state], 000000000
 		
 		jmp UpdatePresence
 
 		SetCarState:
-		mov [discord.discordPresence.state], offset carState
+		mov [discordClient.discordPresence.state], offset carState
 		jmp UpdatePresence
 
 		SetTramState:
-		mov [discord.discordPresence.state], offset tramState
+		mov [discordClient.discordPresence.state], offset tramState
 		jmp UpdatePresence
 
 		SetCutsceneState:
-		mov [discord.discordPresence.state], offset cutsceneState
+		mov [discordClient.discordPresence.state], offset cutsceneState
 		jmp UpdatePresence
 
 		UpdatePresence:
-		mov ecx, offset discord
+		mov ecx, offset discordClient
 		call Discord::UpdatePresence
-		jmp back
+
+        cmp GAME_VERSION, 0x180
+        jz ONEZEROBACK
+        cmp GAME_VERSION, 0x18B
+        jz ONETWOBACK
+
+		ONEZEROBACK:
+        jmp back10
+
+        ONETWOBACK:
+        jmp back12
 	}
 }
 
-int __stdcall DllMain(HMODULE hModule, DWORD reason_for_call, LPVOID lpReserved)
+int __stdcall DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 {
-	if (reason_for_call == DLL_PROCESS_ATTACH)
-	{
-		DisableThreadLibraryCalls(hModule);
+    if (dwReason == DLL_PROCESS_ATTACH)
+    {
+        DisableThreadLibraryCalls(hModule);
 
-		gameVersion = MafiaSDK::GetGameVersion();
-		if (gameVersion == 384)
-		{
-			MessageBoxA(NULL, "Wrong game version! You use Mafia v1.0!\n\nYou should use Mafia v1.2!", "Error!", MB_ICONERROR);
-			exit(1);
-		}
-		else if (gameVersion == 393)
-		{
-			MessageBoxA(NULL, "Wrong game version! You use Mafia v1.1!\n\nYou should use Mafia v1.2!", "Error!", MB_ICONERROR);
-			exit(1);
-		}
-		else if (gameVersion == 395)
-		{
-			Helpers::InstallJmpHook(0x005A395B, (DWORD)OnGameInit);
-			Helpers::InstallJmpHook(0x005661AB, (DWORD)OnGameExit);
-			Helpers::InstallJmpHook(0x005BFDDC, (DWORD)OnGameLoading);
-			Helpers::InstallJmpHook(0x005A4CF9, (DWORD)OnMissionLoading);
-			Helpers::InstallJmpHook(0x005ED1AD, (DWORD)OnPlayerEnterCar);
-			Helpers::InstallJmpHook(0x005ED1CC, (DWORD)OnPlayerExitCar);
-			Helpers::InstallJmpHook(0x005ED456, (DWORD)OnPlayerChangeCamera);
-		}
-		else exit(1);
+        GAME_VERSION = mafiaClient.GetGameVersion();
 
-		InitRpc();
-	}
-	return 1;
+        if (GAME_VERSION == 384)
+        {
+            mafiaClient.Initialize(discordClient, 0x0065115C, 384, "Mafia 1.0");
+            Helpers::InstallJmpHook(0x005DF209, (DWORD)OnGameInit);
+            Helpers::InstallJmpHook(0x00623E8B, (DWORD)OnGameExit);
+            Helpers::InstallJmpHook(0x005FB1D4, (DWORD)OnGameLoading);
+            Helpers::InstallJmpHook(0x005E0756, (DWORD)OnMissionLoading);
+            Helpers::InstallJmpHook(0x005D4ABD, (DWORD)OnPlayerEnterCar);
+            Helpers::InstallJmpHook(0x005D4ADC, (DWORD)OnPlayerExitCar);
+            Helpers::InstallJmpHook(0x005D4D66, (DWORD)OnPlayerChangeCamera);
+            Helpers::Nop(0x00623E90);
+        }
+        else if (GAME_VERSION == 395)
+        {
+            mafiaClient.Initialize(discordClient, 0x0063788C, 395, "Mafia 1.2");
+            Helpers::InstallJmpHook(0x005A395B, (DWORD)OnGameInit);
+            Helpers::InstallJmpHook(0x005661AB, (DWORD)OnGameExit);
+            Helpers::InstallJmpHook(0x005BFDDC, (DWORD)OnGameLoading);
+            Helpers::InstallJmpHook(0x005A4CF9, (DWORD)OnMissionLoading);
+            Helpers::InstallJmpHook(0x005ED1AD, (DWORD)OnPlayerEnterCar);
+            Helpers::InstallJmpHook(0x005ED1CC, (DWORD)OnPlayerExitCar);
+            Helpers::InstallJmpHook(0x005ED456, (DWORD)OnPlayerChangeCamera);
+        }
+        else exit(1);
+
+        AllocConsole();
+        FILE* stream;
+        freopen_s(&stream, "CONOUT$", "w", stdout);
+        InitRpc();
+    }
+    return 1;
 }

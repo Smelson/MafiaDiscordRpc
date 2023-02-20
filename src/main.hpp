@@ -1,8 +1,6 @@
 #pragma once
-//#define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
-#include <cstdint>
-#include <cstdio>
-#include "GetMiseNames.hpp"
 #include "Discord.hpp"
+#include "Helpers.hpp"
 #include "Mafia.hpp"
+#include "GetMiseNames.hpp"

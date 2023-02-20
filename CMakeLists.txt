@@ -2,19 +2,23 @@
 
 project(MafiaRpc)
 
+set(CMAKE_CXX_STANDARD 14)
+
 set(Source
 	src/main.cpp
+	src/Discord.cpp
+	src/Helpers.cpp
 	src/Mafia.cpp
-	src/Helper.cpp
 	src/GetMiseNames.cpp
-	src/Discord.cpp)
+	)
 
-set(Header
+set(Header 
 	src/main.hpp
+	src/Discord.hpp
+	src/Helpers.hpp
 	src/Mafia.hpp
-	src/Helper.hpp
 	src/GetMiseNames.hpp
-	src/Discord.hpp)
+	)
 
 set(DiscordSDK
 	src/DiscordSDK/src/backoff.h
@@ -26,7 +30,8 @@ set(DiscordSDK
 	src/DiscordSDK/src/rpc_connection.cpp
 	src/DiscordSDK/src/rpc_connection.h
 	src/DiscordSDK/src/serialization.cpp
-	src/DiscordSDK/src/serialization.h)
+	src/DiscordSDK/src/serialization.h
+	)
 
 include_directories(src/DiscordSDK/include)
 

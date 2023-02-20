@@ -2,11 +2,6 @@
 #include "GetMiseNames.hpp"
 #include <chrono>
 
-void Mafia::SetBaseAddressPlayer(DWORD baseAddressPlayer)
-{
-	BASE_ADDRESS_PLAYER = baseAddressPlayer;
-}
-
 void Mafia::SetBaseAddressMission(DWORD baseAddressMission)
 {
 	BASE_ADDRESS_MISSION = baseAddressMission;
@@ -17,34 +12,12 @@ void Mafia::SetGameVersion(int gameVersion)
 	GAME_VERSION = gameVersion;
 }
 
-DWORD Mafia::GetBaseAddressPlayer()
-{
-	return BASE_ADDRESS_PLAYER;
-}
-
 DWORD Mafia::GetBaseAddressMission()
 {
 	return BASE_ADDRESS_MISSION;
 }
 
 int Mafia::GetGameVersion()
-{
-	return GAME_VERSION;
-}
-
-void Mafia::Initialize(Discord& discord, DWORD baseAddressPlayer, DWORD baseAddressMission, int gameVersion, const char* smallImageText)
-{
-	SetBaseAddressPlayer(baseAddressPlayer);
-	SetBaseAddressMission(baseAddressMission);
-	SetGameVersion(gameVersion);
-
-	discord.discordPresence.smallImageText = smallImageText;
-	discord.discordPresence.smallImageKey = "mafia_new";
-}
-
-//////////////////////////////////////////////////////////////
-
-int MafiaSDK::GetGameVersion()
 {
 	if (*(DWORD*)0x005F99FE == 384)
 		return 384;
@@ -55,7 +28,14 @@ int MafiaSDK::GetGameVersion()
 	return 0;
 }
 
-/////////////////////////////////////////////////////////////
+void Mafia::Initialize(Discord& discord, DWORD baseAddressMission, int gameVersion, const char* smallImageText)
+{
+	SetBaseAddressMission(baseAddressMission);
+	SetGameVersion(gameVersion);
+
+	discord.discordPresence.smallImageText = smallImageText;
+	discord.discordPresence.smallImageKey = "mafia_new";
+}
 
 void GameLoop(Discord& discord, Mafia& mafia, std::map<std::string, MissionPresenceInfo> presenceMap)
 {
@@ -74,4 +54,3 @@ void GameLoop(Discord& discord, Mafia& mafia, std::map<std::string, MissionPrese
 
 	discord.UpdatePresence();
 }
-

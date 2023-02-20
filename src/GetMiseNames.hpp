@@ -1,3 +1,4 @@
+#pragma once
 #include "Discord.hpp"
 #include <map>
 #include <string>

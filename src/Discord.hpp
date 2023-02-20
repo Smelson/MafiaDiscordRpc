@@ -8,10 +8,10 @@
 class Discord
 {
 public:
-	DiscordEventHandlers handler;
-	DiscordRichPresence discordPresence;
+    DiscordRichPresence discordPresence;
+    DiscordEventHandlers handlers;
 
-	void Initialize();
-	void UpdatePresence();
-	void Shutdown();
+    void Initialize();
+    void UpdatePresence();
+    void Shutdown();
 };
