@@ -1,5 +1,4 @@
 #include "main.hpp"
-#define DEBUG
 
 Discord discordClient;
 Mafia mafiaClient;
@@ -9,9 +8,6 @@ std::map<std::string, MissionPresenceInfo> presenceMap;
 void StartRpc()
 {
 	GameLoop(discordClient, mafiaClient, presenceMap);
-
-    Helpers::Log("OnGameInit Hooked!");
-
 	ExitThread(0);
 }
 
@@ -35,8 +31,6 @@ __declspec(naked) void OnGameExit()
 
 __declspec(naked) void OnGameLoading()
 {
-    Helpers::Log("OnGameLoading Hooked!");
-
     static DWORD back10 = 0x005FB1D9;
     static DWORD back12 = 0x005BFDE1;
 	static const char state[] = "Loading Game...";
@@ -67,8 +61,6 @@ __declspec(naked) void OnGameLoading()
 
 __declspec(naked) void OnMissionLoading()
 {
-    Helpers::Log("OnMissionLoading Hooked!");
-
     static DWORD func10 = 0x6243AC;
 	static DWORD func12 = 0x60FCF6;
     static DWORD back10 = 0x5E075B;
@@ -339,12 +331,6 @@ int __stdcall DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 			Helpers::Nop(0x005F34E7);
         }
         else exit(1);
-
-		#ifdef DEBUG
-        AllocConsole();
-        FILE* stream;
-        freopen_s(&stream, "CONOUT$", "w", stdout);
-		#endif // DEBUG
     }
     return 1;
 }
