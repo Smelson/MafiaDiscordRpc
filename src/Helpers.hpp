@@ -9,5 +9,5 @@ namespace Helpers
 	DWORD GetPointerAddress(DWORD baseAddress, std::vector<DWORD> offsets);
 	void InstallJmpHook(DWORD hookAddress, DWORD myFunction);
 	void InstallCallHook(DWORD hookAddress, DWORD myFunction);
-	void Nop(DWORD hookAddress);
+	void Nop(DWORD hookAddress, int count);
 }

@@ -313,8 +313,8 @@ int __stdcall DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
             Helpers::InstallJmpHook(0x005D4ADC, (DWORD)OnPlayerExitCar);
             Helpers::InstallJmpHook(0x005D4D66, (DWORD)OnPlayerChangeCamera);
 			Helpers::InstallJmpHook(0x005DAAF2, (DWORD)OnPlayerJackCar);
-			Helpers::Nop(0x005DAAF7);
-            Helpers::Nop(0x00623E90);
+			Helpers::Nop(0x005DAAF7, 1);
+            Helpers::Nop(0x00623E90, 1);
         }
         else if (GAME_VERSION == 395)
         {
@@ -328,7 +328,7 @@ int __stdcall DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
             Helpers::InstallJmpHook(0x005ED1CC, (DWORD)OnPlayerExitCar);
             Helpers::InstallJmpHook(0x005ED456, (DWORD)OnPlayerChangeCamera);
 			Helpers::InstallJmpHook(0x005F34E2, (DWORD)OnPlayerJackCar);
-			Helpers::Nop(0x005F34E7);
+			Helpers::Nop(0x005F34E7, 1);
         }
         else exit(1);
     }

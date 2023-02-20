@@ -2,8 +2,15 @@
 
 void Helpers::Log(const char* logText)
 {
-	long long timenow = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
-	printf("[Info] - %s\n", logText);
+	static DWORD missionOffset = 0x6BF980;
+	static DWORD func = 0x5F9D50;
+	_asm
+	{
+		push 0xFFFFFF
+		push logText
+		mov ecx, missionOffset
+		call func
+	}
 }
 
 DWORD Helpers::GetPointerAddress(DWORD baseAddress, std::vector<DWORD> offsets)
@@ -35,10 +42,14 @@ void Helpers::InstallCallHook(DWORD hookAddress, DWORD myFunction)
 	VirtualProtect((void*)hookAddress, 5, protect[0], &protect[1]);
 }
 
-void Helpers::Nop(DWORD hookAddress)
+void Helpers::Nop(DWORD hookAddress, int count)
 {
+	DWORD tempAddress = hookAddress;
 	DWORD protect[2];
-	VirtualProtect((void*)hookAddress, 1, PAGE_EXECUTE_READWRITE, &protect[0]);
-	*(BYTE*)hookAddress = 0x90;
-	VirtualProtect((void*)hookAddress, 1, protect[0], &protect[1]);
+	VirtualProtect((void*)hookAddress, count, PAGE_EXECUTE_READWRITE, &protect[0]);
+	for (int i = 0; i < count; tempAddress++, i++)
+	{
+		*(BYTE*)tempAddress = 0x90;
+	}
+	VirtualProtect((void*)hookAddress, count, protect[0], &protect[1]);
 }
