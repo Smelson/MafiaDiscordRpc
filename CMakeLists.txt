@@ -33,6 +33,24 @@ set(DiscordSDK
 	src/DiscordSDK/src/serialization.h
 	)
 
+#set(ImGUI
+#	src/ImGUI/imconfig.h
+#	src/ImGUI/imgui_demo.cpp
+#	src/ImGUI/imgui_draw.cpp
+#	src/ImGUI/imgui_internal.h
+#	src/ImGUI/imgui_tables.cpp
+#	src/ImGUI/imgui_widgets.cpp
+#	src/ImGUI/imgui.cpp
+#	src/ImGUI/imgui.h
+#	src/ImGUI/imstb_rectpack.h
+#	src/ImGUI/imstb_textedit.h
+#	src/ImGUI/imstb_truetype.h
+#	src/ImGUI/imgui_impl_dx9.cpp
+#	src/ImGUI/imgui_impl_dx9.h
+#	src/ImGUI/imgui_impl_win32.cpp
+#	src/ImGUI/imgui_impl_win32.h
+#	)
+
 include_directories(src/DiscordSDK/include)
 
 add_library(MafiaRpc SHARED ${Source} ${Header} ${DiscordSDK})

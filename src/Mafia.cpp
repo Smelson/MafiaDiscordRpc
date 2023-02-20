@@ -7,6 +7,11 @@ void Mafia::SetBaseAddressMission(DWORD baseAddressMission)
 	BASE_ADDRESS_MISSION = baseAddressMission;
 }	
 
+void Mafia::SetBaseAddressPlayer(DWORD baseAddressPlayer)
+{
+	BASE_ADDRESS_PLAYER = baseAddressPlayer;
+}
+
 void Mafia::SetGameVersion(int gameVersion)
 {
 	GAME_VERSION = gameVersion;
@@ -15,6 +20,11 @@ void Mafia::SetGameVersion(int gameVersion)
 DWORD Mafia::GetBaseAddressMission()
 {
 	return BASE_ADDRESS_MISSION;
+}
+
+DWORD Mafia::GetBaseAddressPlayer()
+{
+	return BASE_ADDRESS_PLAYER;
 }
 
 int Mafia::GetGameVersion()
@@ -28,9 +38,10 @@ int Mafia::GetGameVersion()
 	return 0;
 }
 
-void Mafia::Initialize(Discord& discord, DWORD baseAddressMission, int gameVersion, const char* smallImageText)
+void Mafia::Initialize(Discord& discord, DWORD baseAddressMission, DWORD baseAddressPlayer, int gameVersion, const char* smallImageText)
 {
 	SetBaseAddressMission(baseAddressMission);
+	SetBaseAddressPlayer(baseAddressPlayer);
 	SetGameVersion(gameVersion);
 
 	discord.discordPresence.smallImageText = smallImageText;
@@ -40,7 +51,7 @@ void Mafia::Initialize(Discord& discord, DWORD baseAddressMission, int gameVersi
 void GameLoop(Discord& discord, Mafia& mafia, std::map<std::string, MissionPresenceInfo> presenceMap)
 {
 	DWORD BASE_ADDRESS_MISSION = mafia.GetBaseAddressMission();
-
+	DWORD BASE_ADDRESS_PLAYER = mafia.GetBaseAddressPlayer();
 	const char* mission;
 
 	std::string missionString = "00menu";
@@ -49,8 +60,8 @@ void GameLoop(Discord& discord, Mafia& mafia, std::map<std::string, MissionPrese
 	missionString = mission;
 
 	GetMafiaMissionsNames(discord, presenceMap, mission);
-	discord.discordPresence.state = nullptr;
 	discord.discordPresence.startTimestamp = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
+	discord.discordPresence.state = NULL;
 
 	discord.UpdatePresence();
 }

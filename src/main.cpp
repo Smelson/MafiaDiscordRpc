@@ -1,4 +1,5 @@
 #include "main.hpp"
+#define DEBUG
 
 Discord discordClient;
 Mafia mafiaClient;
@@ -236,6 +237,70 @@ __declspec(naked) void OnPlayerChangeCamera()
 	}
 }
 
+__declspec(naked) void OnPlayerJackCar()
+{
+	static DWORD back10 = 0x5DAAF8;
+	static DWORD back12 = 0x5F34E8;
+	static DWORD back;
+	static int playerCamera4C;
+	static int playerCamera;
+	static int isCameraFree;
+
+	static const char state[] = "Jacking a Car...";
+
+	_asm
+	{
+		cmp GAME_VERSION, 0x180
+        jz ONEZERO
+        cmp GAME_VERSION, 0x18B
+        jz ONETWO
+
+		ONEZERO:
+		mov playerCamera4C, ecx
+		mov ecx, back10
+		mov back, ecx
+		mov ecx, playerCamera4C
+		jmp Logic
+
+		ONETWO:
+		mov playerCamera4C, ecx
+		mov ecx, back12
+		mov back, ecx
+		mov ecx, playerCamera4C
+		jmp Logic
+
+		Logic:
+		mov [ecx+0x94], al
+		mov playerCamera4C, ecx
+		mov ecx, [ecx+0x94]
+		mov isCameraFree, ecx
+		mov ecx, playerCamera4C
+		mov ecx, [ecx+0x10]
+		mov playerCamera, ecx
+		mov ecx, playerCamera4C
+
+		cmp playerCamera, 0x7
+		jge No
+		cmp isCameraFree, 0x1
+		jne SetNull
+		mov [discordClient.discordPresence.state], offset state
+		jmp UpdatePresence
+		
+		No:
+		jmp UpdatePresence
+
+		SetNull:
+		mov [discordClient.discordPresence.state], 0
+		jmp UpdatePresence
+
+		UpdatePresence:
+		mov ecx, offset discordClient
+		call Discord::UpdatePresence
+		mov ecx, playerCamera4C
+		jmp back
+	}
+}
+
 int __stdcall DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 {
     if (dwReason == DLL_PROCESS_ATTACH)
@@ -246,7 +311,8 @@ int __stdcall DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 
         if (GAME_VERSION == 384)
         {
-            mafiaClient.Initialize(discordClient, 0x0065115C, 384, "Mafia 1.0");
+			InitRpc();
+            mafiaClient.Initialize(discordClient, 0x65115C, 0x6F9464, 384, "Mafia 1.0");
             Helpers::InstallJmpHook(0x005DF209, (DWORD)OnGameInit);
             Helpers::InstallJmpHook(0x00623E8B, (DWORD)OnGameExit);
             Helpers::InstallJmpHook(0x005FB1D4, (DWORD)OnGameLoading);
@@ -254,11 +320,14 @@ int __stdcall DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
             Helpers::InstallJmpHook(0x005D4ABD, (DWORD)OnPlayerEnterCar);
             Helpers::InstallJmpHook(0x005D4ADC, (DWORD)OnPlayerExitCar);
             Helpers::InstallJmpHook(0x005D4D66, (DWORD)OnPlayerChangeCamera);
+			Helpers::InstallJmpHook(0x005DAAF2, (DWORD)OnPlayerJackCar);
+			Helpers::Nop(0x005DAAF7);
             Helpers::Nop(0x00623E90);
         }
         else if (GAME_VERSION == 395)
         {
-            mafiaClient.Initialize(discordClient, 0x0063788C, 395, "Mafia 1.2");
+			InitRpc();
+            mafiaClient.Initialize(discordClient, 0x63788C, 0x647E1C, 395, "Mafia 1.2");
             Helpers::InstallJmpHook(0x005A395B, (DWORD)OnGameInit);
             Helpers::InstallJmpHook(0x005661AB, (DWORD)OnGameExit);
             Helpers::InstallJmpHook(0x005BFDDC, (DWORD)OnGameLoading);
@@ -266,13 +335,16 @@ int __stdcall DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
             Helpers::InstallJmpHook(0x005ED1AD, (DWORD)OnPlayerEnterCar);
             Helpers::InstallJmpHook(0x005ED1CC, (DWORD)OnPlayerExitCar);
             Helpers::InstallJmpHook(0x005ED456, (DWORD)OnPlayerChangeCamera);
+			Helpers::InstallJmpHook(0x005F34E2, (DWORD)OnPlayerJackCar);
+			Helpers::Nop(0x005F34E7);
         }
         else exit(1);
 
+		#ifdef DEBUG
         AllocConsole();
         FILE* stream;
         freopen_s(&stream, "CONOUT$", "w", stdout);
-        InitRpc();
+		#endif // DEBUG
     }
     return 1;
 }
