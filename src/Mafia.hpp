@@ -25,4 +25,4 @@ public:
 	void Mafia::Initialize(Discord& discord, DWORD baseAddressMission, DWORD baseAddressPlayer, int gameVersion, const char* smallImageText);
 };
 
-void GameLoop(Discord& discord, Mafia& mafia, std::map<std::string, MissionPresenceInfo> presenceMap);
+void GameLoop(Discord& discord, Mafia& mafia, std::map<std::string, MissionPresenceInfo> presenceMap, bool IS_DEBUG);

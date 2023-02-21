@@ -10,4 +10,4 @@ struct MissionPresenceInfo
 };
 
 std::map<std::string, MissionPresenceInfo> SetMap();
-void GetMafiaMissionsNames(Discord& discord, std::map<std::string, MissionPresenceInfo> presenceMap, const char* mission);
+void GetMafiaMissionsNames(Discord& discord, std::map<std::string, MissionPresenceInfo> presenceMap, const char* mission, bool IS_DEBUG);

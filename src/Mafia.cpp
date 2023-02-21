@@ -48,7 +48,7 @@ void Mafia::Initialize(Discord& discord, DWORD baseAddressMission, DWORD baseAdd
 	discord.discordPresence.smallImageKey = "mafia_new";
 }
 
-void GameLoop(Discord& discord, Mafia& mafia, std::map<std::string, MissionPresenceInfo> presenceMap)
+void GameLoop(Discord& discord, Mafia& mafia, std::map<std::string, MissionPresenceInfo> presenceMap, bool IS_DEBUG)
 {
 	DWORD BASE_ADDRESS_MISSION = mafia.GetBaseAddressMission();
 	DWORD BASE_ADDRESS_PLAYER = mafia.GetBaseAddressPlayer();
@@ -59,7 +59,8 @@ void GameLoop(Discord& discord, Mafia& mafia, std::map<std::string, MissionPrese
 	mission = (const char*)Helpers::GetPointerAddress(BASE_ADDRESS_MISSION, { 0x68, 0x0 });
 	missionString = mission;
 
-	GetMafiaMissionsNames(discord, presenceMap, mission);
+	GetMafiaMissionsNames(discord, presenceMap, mission, IS_DEBUG);
+
 	discord.discordPresence.startTimestamp = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
 	discord.discordPresence.state = NULL;
 

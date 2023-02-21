@@ -86,21 +86,32 @@ std::map<std::string, MissionPresenceInfo> SetMap()
 	return presenceMap;
 }
 
-void GetMafiaMissionsNames(Discord& discord, std::map<std::string, MissionPresenceInfo> presenceMap, const char* mission)
+void GetMafiaMissionsNames(Discord& discord, std::map<std::string, MissionPresenceInfo> presenceMap, const char* mission, bool IS_DEBUG)
 {
 	std::string missionString = mission;
 
 	MissionPresenceInfo info = presenceMap[missionString];
 
-	if (info.details == nullptr && info.largeImageKey == nullptr)
+	if (IS_DEBUG == false)
+	{
+		if (info.details == nullptr && info.largeImageKey == nullptr)
+		{
+			discord.discordPresence.details = mission;
+			discord.discordPresence.largeImageKey = "";
+			discord.discordPresence.largeImageText = mission;
+			return;
+		}
+
+		discord.discordPresence.details = info.details;
+		discord.discordPresence.largeImageKey = info.largeImageKey;
+		discord.discordPresence.largeImageText = info.details;
+		return;
+	}
+
+	else 
 	{
 		discord.discordPresence.details = mission;
 		discord.discordPresence.largeImageKey = "";
 		discord.discordPresence.largeImageText = mission;
-		return;
 	}
-
-	discord.discordPresence.details = info.details;
-	discord.discordPresence.largeImageKey = info.largeImageKey;
-	discord.discordPresence.largeImageText = info.details;
 }

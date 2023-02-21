@@ -4,3 +4,4 @@
 #include "Helpers.hpp"
 #include "Mafia.hpp"
 #include "GetMiseNames.hpp"
+#include "Hooks.hpp"
