@@ -1,15 +1,31 @@
 #include "Helpers.hpp"
 
-void Helpers::Log(const char* logText)
+void Helpers::Log(const char* logText, int color, int GAME_VERSION)
 {
-	static DWORD missionOffset = 0x6BF980;
-	static DWORD func = 0x5F9D50;
-	_asm
+	if (GAME_VERSION == 384)
 	{
-		push 0xFFFFFF
-		push logText
-		mov ecx, missionOffset
-		call func
+		static DWORD missionOffset = 0x658330;
+		static DWORD func = 0x54BE80 ;
+		_asm
+		{
+			push color
+			push logText
+			mov ecx, missionOffset
+			call func	
+		}
+	}
+
+	if (GAME_VERSION == 395)
+	{
+		static DWORD missionOffset = 0x6BF980;
+		static DWORD func = 0x5F9D50;
+		_asm
+		{
+			push color
+			push logText
+			mov ecx, missionOffset
+			call func	
+		}
 	}
 }
 

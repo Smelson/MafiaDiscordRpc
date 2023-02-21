@@ -1,5 +1,6 @@
 #pragma once
 #include "Discord.hpp"
+#include "stdio.h"
 
 void OnGameExit();
 void OnGameLoading();

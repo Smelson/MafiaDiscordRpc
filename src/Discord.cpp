@@ -11,6 +11,11 @@ void Discord::UpdatePresence()
     Discord_UpdatePresence(&discordPresence);
 }
 
+void Discord::ClearPresence()
+{
+    Discord_ClearPresence();
+}
+
 void Discord::Shutdown()
 {
     Discord_Shutdown();

@@ -13,5 +13,6 @@ public:
 
     void Initialize();
     void UpdatePresence();
+    void ClearPresence();
     void Shutdown();
 };

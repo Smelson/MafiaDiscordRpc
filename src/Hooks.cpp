@@ -6,6 +6,7 @@ extern int GAME_VERSION;
 __declspec(naked) void OnGameExit()
 {
     _asm add esp, 3ECh
+	discordClient.ClearPresence();
 	discordClient.Shutdown();
 	_asm retn 10h
 }

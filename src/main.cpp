@@ -3,6 +3,7 @@
 Discord discordClient;
 Mafia mafiaClient;
 int GAME_VERSION;
+
 std::map<std::string, MissionPresenceInfo> presenceMap;
 bool IS_DEBUG = false;
 
@@ -19,6 +20,11 @@ void ChangeMode()
         if (GetAsyncKeyState(VK_INSERT))
         {   
             IS_DEBUG = !IS_DEBUG;
+            CreateThread(nullptr, 0, reinterpret_cast<LPTHREAD_START_ROUTINE>(StartRpc), nullptr, 0, nullptr);
+            if (IS_DEBUG == true)
+                Helpers::Log("Modding Mode Activated!", 0x00FF00, GAME_VERSION);
+            else
+                Helpers::Log("Standard Mode Activated!", 0x00FF00, GAME_VERSION);
         }
         Sleep(1500);
     }
